@@ -1,0 +1,22 @@
+#left {
+	/* width: 50%; */
+	width: 100%;
+	float: left;
+}
+
+#right {
+	width: 50%;
+	float: right;
+}
+
+#code {
+	margin: 1em;
+}
+
+#emuconsole {
+	max-height: 15em;
+	margin: 0.5em;
+	overflow: auto;
+	background: black;
+	color: #8ff;
+}
