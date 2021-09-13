@@ -105,13 +105,13 @@ function placeEntities() {
 			const code = map[i][j];
 			if (code >= 1 && code <= 4) {
 				bricks.push(new Brick(code, x, y));
-				brickMatrix[i][j] = bricks[bricks.length-1];
+				brickMatrix[i][j] = bricks[bricks.length - 1];
 			}
 			if (code >= 5 && code <= 8) {
-				enemies.push(new Tank(enemyTankSprites[code-5], x + BRICK_SIZE/2, y + BRICK_SIZE/2, "up", "enemy"));
+				enemies.push(new Tank(enemyTankSprites[code - 5], x + BRICK_SIZE / 2, y + BRICK_SIZE / 2, "up", "enemy"));
 			}
 			if (code === 9) {
-				createPlayer(x + BRICK_SIZE/2, y + BRICK_SIZE/2);
+				createPlayer(x + BRICK_SIZE / 2, y + BRICK_SIZE / 2);
 			}
 		}
 	}
@@ -186,7 +186,7 @@ function buildSpriteCollections() {
 	for (let orientation of ["up", "down", "left", "right"]) {
 		dosemuSprite.computeBoundingBox(playerTankSprites[orientation]);
 		dosemuSprite.computeBoundingBox(bulletSprites[orientation]);
-		for (let i=0; i<enemyTankSprites.length; i++)
+		for (let i = 0; i < enemyTankSprites.length; i++)
 			dosemuSprite.computeBoundingBox(enemyTankSprites[i][orientation]);
 	}
 
@@ -209,16 +209,25 @@ function clamp(x, a, b) {
 }
 
 /** checks a bounding box at a position against collisions with world objects
- * @param {number} dirX direction of motion on x axis (+/-1)
- * @param {number} dirY direction of motion on y axis (+/-1)
+ * @param {number} dX delta X that entity wants to move
+ * @param {number} dY delta Y that entity wants to move
  * @param {BoundingBox} bbox
+ * @returns {{
+ * 		collider: Entity | null,
+ * 		travelX: number,
+ * 		travelY: number
+ * }} collider represents the entity that was collided with (or null if there was no collision);
+ * travelX and travelY are the distances that can be travelled right up to the collision point.
  */
-function checkCollision(entity, bbox, dirX, dirY) {
+function checkCollision(entity, bbox, dX, dY) {
 	const events = [];
 	if (entity !== player) {
 		const overlap = dosemuBBox.getBoundingBoxOverlap(bbox, player.getBoundingBox());
 		if (overlap)
-			events.push(overlap);
+			events.push({
+				...overlap,
+				entity: player
+			});
 	}
 	for (let enemy of enemies) {
 		if (entity === enemy)
@@ -226,25 +235,51 @@ function checkCollision(entity, bbox, dirX, dirY) {
 		const enemyBbox = enemy.getBoundingBox();
 		const overlap = dosemuBBox.getBoundingBoxOverlap(bbox, enemyBbox);
 		if (overlap) {
-			events.push(overlap);
+			events.push({
+				...overlap,
+				entity: enemy
+			});
 		}
 	}
-	let rowMin = clamp(Math.floor(bbox.up / BRICK_SIZE), 0, MAP_ROWS-1);
-	let rowMax = clamp(Math.floor(bbox.down / BRICK_SIZE), 0, MAP_ROWS-1)
-	let colMin = clamp(Math.floor(bbox.left / BRICK_SIZE), 0, MAP_COLS-1);
-	let colMax = clamp(Math.floor(bbox.right / BRICK_SIZE), 0, MAP_COLS-1);
-	for (let i=rowMin; i<= rowMax; i++) {
-		for (let j=colMin; j<= colMax; j++) {
+	let rowMin = clamp(Math.floor(bbox.up / BRICK_SIZE), 0, MAP_ROWS - 1);
+	let rowMax = clamp(Math.floor(bbox.down / BRICK_SIZE), 0, MAP_ROWS - 1)
+	let colMin = clamp(Math.floor(bbox.left / BRICK_SIZE), 0, MAP_COLS - 1);
+	let colMax = clamp(Math.floor(bbox.right / BRICK_SIZE), 0, MAP_COLS - 1);
+	for (let i = rowMin; i <= rowMax; i++) {
+		for (let j = colMin; j <= colMax; j++) {
 			if (!brickMatrix[i][j])
 				continue;
 			const overlap = dosemuBBox.getBoundingBoxOverlap(bbox, brickMatrix[i][j].getBoundingBox());
 			if (overlap) {
-				events.push(overlap);
+				events.push({
+					...overlap,
+					entity: brickMatrix[i][j]
+				});
 			}
 		}
 	}
-	if (events.length)
-		console.log(events);
+	if (!events.length) {
+		return {
+			collider: null, // no collisions detected
+			travelX: dX,
+			travelY: dY
+		};
+	}
+	const dxSign = Math.sign(dX);
+	const dySign = Math.sign(dY);
+	// sort events by distance - the ones that occur earlier in the movement come first
+	events.sort((e1, e2) => {
+		const e1_total = e1.overlapX * dxSign + e1.overlapY * dySign;
+		const e2_total = e2.overlapX * dxSign + e2.overlapY * dySign;
+		return e2_total - e1_total;
+	});
+	// events[0] is the first collision
+	const overlapNormalized = clamp((events[0].xOverlap * dX + events[0].yOverlap * dY) / Math.sqrt(dX * dX + dY * dY), 0.0, 1.0);
+	return {
+		collider: events[0].entity,
+		travelX: dX * (1.0 - overlapNormalized),
+		travelY: dY * (1.0 - overlapNormalized)
+	};
 }
 
 class Tank {
@@ -307,9 +342,9 @@ class Tank {
 	}
 
 	move(dx, dy) {
-		const collisionResult = checkCollision(this, this.getBoundingBox(), Math.sign(dx), Math.sign(dy));
-		this.x += dx;
-		this.y += dy;
+		const collisionResult = checkCollision(this, this.getBoundingBox(), dx, dy);
+		this.x += collisionResult.travelX;
+		this.y += collisionResult.travelY;
 	}
 }
 
