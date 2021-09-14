@@ -1,8 +1,9 @@
 import * as dosemu from "./lib/dosemu.mjs";
 import { update as soundUpdate } from "./lib/dosemu-sound.mjs";
 import * as helloWorldScenario from "./scenarios/hello-world.mjs";
-import * as tanksScenario from "./scenarios/tanks.mjs";
+import * as tanksScenario from "./scenarios/tanks/tanks.mjs";
 import * as mouseDrawScenario from "./scenarios/mouse-draw.mjs";
+import * as paletteScenario from "./scenarios/palette.mjs";
 
 let crtScenario;
 let lastTime = new Date();
@@ -10,6 +11,7 @@ let lastTime = new Date();
 export function main() {
 	dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));
 
+	// crtScenario = paletteScenario;
 	// crtScenario = helloWorldScenario;
 	crtScenario = tanksScenario;
 	// crtScenario = mouseDrawScenario;
