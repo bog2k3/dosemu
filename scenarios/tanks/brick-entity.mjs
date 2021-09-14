@@ -30,7 +30,7 @@ export class Brick extends Entity {
 
 	/** @param {Entity} otherEntity */
 	handleCollision(otherEntity) {
-		if (otherEntity.getType() === "Bullet") {
+		if (otherEntity.getType() === "Bullet" && this.type === 1) {
 			this.break();
 		}
 	}

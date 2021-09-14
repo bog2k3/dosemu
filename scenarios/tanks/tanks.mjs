@@ -1,5 +1,6 @@
 import * as dosemu from "../../lib/dosemu.mjs";
 import * as dosemuSprite from "../../lib/dosemu-sprite.mjs";
+import * as dosemuSound from "../../lib/dosemu-sound.mjs";
 import playerTankSprite from "./data/tank-sprite-player.png.mjs";
 import enemyTankSpriteA from "./data/tank-sprite-enemy-a.png.mjs";
 import enemyTankSpriteB from "./data/tank-sprite-enemy-b.png.mjs";
@@ -7,11 +8,13 @@ import enemyTankSpriteC from "./data/tank-sprite-enemy-c.png.mjs";
 import enemyTankSpriteD from "./data/tank-sprite-enemy-d.png.mjs";
 import bulletSprite from "./data/bullet-sprite.png.mjs";
 import brickSprite1 from "./data/brick-sprite1.png.mjs";
+import brickSprite2 from "./data/brick-sprite2.png.mjs";
+import music from "./data/music.mid.mjs";
 import { Entity } from "./entity.mjs";
 import { Brick } from "./brick-entity.mjs";
 import { Tank } from "./tank-entity.mjs";
-import world from "./world.mjs";
 import { Bullet } from "./bullet-entity.mjs";
+import world from "./world.mjs";
 
 Entity.debugFlags.drawCenterPoint = false;
 Entity.debugFlags.drawBBox = false;
@@ -32,7 +35,7 @@ const map = [
 	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 	[1, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1],
 	[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
-	[1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+	[1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1],
 	[1, 0, 5, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 5, 0, 1],
 	[1, 0, 0, 0, 1, 0, 0, 9, 0, 0, 1, 0, 1, 1, 1, 1],
 	[1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1],
@@ -45,6 +48,9 @@ export function init() {
 	buildSpriteCollections();
 	buildSounds();
 	placeEntities();
+	dosemuSound.setSoundStartedCallback(() => {
+		dosemuSound.loop(music, -1, null, "triangle");
+	});
 }
 
 export function draw() {
@@ -69,6 +75,7 @@ export function update(dt) {
 		enemy.update(dt);
 		if (enemy.health <= 0) {
 			world.enemies.splice(i, 1)
+			dosemu.consoleOut("Enemy destroyed!");
 		} else {
 			i++;
 		}
@@ -182,7 +189,7 @@ function buildSpriteCollections() {
 	Bullet.sprites["down"] = dosemuSprite.rotateSprite(bulletSprite, 2);
 	Bullet.sprites["left"] = dosemuSprite.rotateSprite(bulletSprite, 3);
 
-	const brickSpriteList = [brickSprite1];
+	const brickSpriteList = [brickSprite1, brickSprite2];
 	for (let brickSprite of brickSpriteList) {
 		dosemuSprite.computeBoundingBox(brickSprite);
 		Brick.sprites.push(brickSprite);

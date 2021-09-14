@@ -7,7 +7,7 @@
 		{
 			"name": "Launch Program",
 			"program": "${workspaceFolder}/tools/midiconv/midiconv.mjs",
-			"args": ["../../scenarios/data/mario-theme.mid"],
+			"args": ["../../scenarios/tanks/data/music.mid"],
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tonejs/midi": "^2.0.27",
     "midi-json-parser": "^8.0.46"
   }
 }
