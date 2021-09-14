@@ -7,7 +7,6 @@ export function init() {
 }
 
 export function draw() {
-	dosemu.drawNoise();
 	const sqW = 30;
 	const textH = 10;
 	const rowH = sqW + textH;
