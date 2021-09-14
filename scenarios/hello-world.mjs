@@ -1,9 +1,9 @@
 import * as dosemu from "../lib/dosemu.mjs";
 import * as dosemuSound from "../lib/dosemu-sound.mjs";
-import marioSprite from "./data/mario-sprite.mjs";
+import marioSprite from "./data/mario-sprite.png.mjs";
 import marioMusic from "./data/mario-theme.mid.mjs";
 
-const marioGroundY = 60;
+const marioGroundY = 70;
 const marioShootSpeed = -80;
 let marioY = marioGroundY;
 let marioSpeed = 0;
@@ -20,12 +20,12 @@ export function init() {
 }
 
 export function draw() {
-	dosemu.text(160, 100, "Hello World!", 10, "center");
-	dosemu.text(160, 115, "Click here and press space!", 10, "center");
+	dosemu.drawText(160, 100, "Hello World!", 10, "center");
+	dosemu.drawText(160, 115, "Click here and press space!", 10, "center");
 	dosemu.drawRectangle(30, 50, 100, 150, 12);
 	dosemu.drawLine(290, 50, 130, 180, 15);
 	dosemu.drawCircle(160, 100, 80, 14);
-	dosemu.drawSprite(144, marioY, marioSprite);
+	dosemu.drawSprite(160, marioY, marioSprite);
 }
 
 export function update(dt) {
