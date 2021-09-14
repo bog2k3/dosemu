@@ -14,7 +14,7 @@ export function draw() {
 			continue;
 		for (let j=0; j<320; j++) {
 			if (pixels[i][j]) {
-				dosemu.putPixel(j, i, pixels[i][j]);
+				dosemu.drawPixel(j, i, pixels[i][j]);
 			}
 		}
 	}

@@ -22,10 +22,10 @@ export function init() {
 export function draw() {
 	dosemu.text(160, 100, "Hello World!", 10, "center");
 	dosemu.text(160, 115, "Click here and press space!", 10, "center");
-	dosemu.rectangle(30, 50, 100, 150, 12);
-	dosemu.line(290, 50, 130, 180, 15);
-	dosemu.circle(160, 100, 80, 14);
-	dosemu.sprite(144, marioY, marioSprite);
+	dosemu.drawRectangle(30, 50, 100, 150, 12);
+	dosemu.drawLine(290, 50, 130, 180, 15);
+	dosemu.drawCircle(160, 100, 80, 14);
+	dosemu.drawSprite(144, marioY, marioSprite);
 }
 
 export function update(dt) {
