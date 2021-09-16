@@ -1,5 +1,5 @@
-import * as dosemu from "../../lib/dosemu.mjs";
-import { checkCollision } from "./collision.mjs";
+import * as dosemu from "../../lib/dosemu.js";
+import { checkCollision } from "./collision.js";
 
 export class Entity {
 

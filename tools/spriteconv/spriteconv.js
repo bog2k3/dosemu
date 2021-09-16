@@ -1,5 +1,5 @@
 import PNG from "png-js";
-import VGA_Palette from "../../lib/data/vga-palette.mjs";
+import VGA_Palette from "../../lib/data/vga-palette.js";
 import fs from "fs";
 
 const img = PNG.load(process.argv[2]);
@@ -15,7 +15,7 @@ img.decode((imagePixels) => {
 		}
 		lines.push(pixels);
 	}
-	fs.writeFileSync(`${process.argv[2]}.mjs`, `export default ${JSON.stringify({
+	fs.writeFileSync(`${process.argv[2]}.js`, `export default ${JSON.stringify({
 		width: w,
 		height: h,
 		originX: Number.parseInt(process.argv[3] || Math.floor(w/2)),

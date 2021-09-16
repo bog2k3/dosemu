@@ -75,7 +75,7 @@ function convertMidi(midiData) {
 		}
 	}
 	notes.push([0, 0]);
-	fs.writeFileSync(`${process.argv[2]}.mjs`, `export default ${JSON.stringify(notes)}`);
+	fs.writeFileSync(`${process.argv[2]}.js`, `export default ${JSON.stringify(notes)}`);
 }
 
 (function main() {

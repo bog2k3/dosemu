@@ -10,7 +10,7 @@ const fs = require("fs");
  *
  */
 
-const buf = fs.readFileSync("default.fnt", {});
+const buf = fs.readFileSync(process.argv[2], {});
 const charWidth = buf[0];
 const charHeight = buf[1];
 const charData = [];
@@ -22,7 +22,7 @@ for (let i=0; i<256; i++) {
 	charData.push(toCharData(charBytes));
 }
 
-fs.writeFileSync("font.json", JSON.stringify({
+fs.writeFileSync(`${process.argv[2]}.js`, JSON.stringify({
 	charWidth,
 	charHeight,
 	charData

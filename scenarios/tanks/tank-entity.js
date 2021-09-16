@@ -1,9 +1,9 @@
-import * as dosemu from "../../lib/dosemu.mjs";
-import * as dosemuBBox from "../../lib/dosemu-bbox.mjs";
-import * as dosemuSound from "../../lib/dosemu-sound.mjs";
-import { Entity } from "./entity.mjs";
-import world from "./world.mjs";
-import { Bullet } from "./bullet-entity.mjs";
+import * as dosemu from "../../lib/dosemu.js";
+import * as dosemuBBox from "../../lib/dosemu-bbox.js";
+import * as dosemuSound from "../../lib/dosemu-sound.js";
+import { Entity } from "./entity.js";
+import world from "./world.js";
+import { Bullet } from "./bullet-entity.js";
 
 export class Tank extends Entity {
 

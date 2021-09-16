@@ -6,7 +6,7 @@
 	"configurations": [
 		{
 			"name": "Launch Program",
-			"program": "${workspaceFolder}/tools/midiconv/midiconv.mjs",
+			"program": "${workspaceFolder}/tools/midiconv/midiconv.js",
 			"args": ["../../scenarios/tanks/data/music.mid"],
 			"request": "launch",
 			"skipFiles": [

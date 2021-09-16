@@ -1,4 +1,4 @@
-import * as dosemu from "../lib/dosemu.mjs";
+import * as dosemu from "../lib/dosemu.js";
 
 let rowOffs = 0;
 

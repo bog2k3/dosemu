@@ -1,9 +1,9 @@
-import * as dosemu from "./lib/dosemu.mjs";
-import { update as soundUpdate } from "./lib/dosemu-sound.mjs";
-import * as helloWorldScenario from "./scenarios/hello-world.mjs";
-import * as tanksScenario from "./scenarios/tanks/tanks.mjs";
-import * as mouseDrawScenario from "./scenarios/mouse-draw.mjs";
-import * as paletteScenario from "./scenarios/palette.mjs";
+import * as dosemu from "./lib/dosemu.js";
+import { update as soundUpdate } from "./lib/dosemu-sound.js";
+import * as helloWorldScenario from "./scenarios/hello-world.js";
+import * as tanksScenario from "./scenarios/tanks/tanks.js";
+import * as mouseDrawScenario from "./scenarios/mouse-draw.js";
+import * as paletteScenario from "./scenarios/palette.js";
 
 let crtScenario;
 let lastTime = new Date();

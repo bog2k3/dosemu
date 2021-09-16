@@ -1,6 +1,7 @@
 {
   "name": "picconv",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "convert-pic.js",
   "scripts": {

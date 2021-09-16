@@ -1,5 +1,5 @@
-import * as dosemuBBox from "../../lib/dosemu-bbox.mjs";
-import world from "./world.mjs";
+import * as dosemuBBox from "../../lib/dosemu-bbox.js";
+import world from "./world.js";
 
 function clamp(x, a, b) {
 	if (x < a) x = a;

@@ -1,7 +1,7 @@
-import * as dosemu from "../lib/dosemu.mjs";
-import * as dosemuSound from "../lib/dosemu-sound.mjs";
-import marioSprite from "./data/mario-sprite.png.mjs";
-import marioMusic from "./data/mario-theme.mid.mjs";
+import * as dosemu from "../lib/dosemu.js";
+import * as dosemuSound from "../lib/dosemu-sound.js";
+import marioSprite from "./data/mario-sprite.png.js";
+import marioMusic from "./data/mario-theme.mid.js";
 
 const marioGroundY = 70;
 const marioShootSpeed = -80;
