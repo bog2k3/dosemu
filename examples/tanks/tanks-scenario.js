@@ -112,9 +112,7 @@ function placeEntities() {
 				world.brickMatrix[i][j] = world.bricks[world.bricks.length - 1];
 			}
 			if (code >= 5 && code <= 8) {
-				const enemy = new Tank(enemyTankSprites[code - 5], x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2, "up", "enemy")
-				enemy.addController(new AIController(enemy, world));
-				world.enemies.push(enemy);
+				createEnemy(x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2, code - 5);
 			}
 			if (code === 9) {
 				createPlayer(x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2);
@@ -126,6 +124,12 @@ function placeEntities() {
 function createPlayer(x, y) {
 	world.player = new Tank(playerTankSprites, x, y, "up", "player");
 	world.player.addController(new HumanController(world.player, world));
+}
+
+function createEnemy(x, y, type) {
+	const enemy = new Tank(enemyTankSprites[type], x, y, "up", "enemy")
+	enemy.addController(new AIController(enemy, world));
+	world.enemies.push(enemy);
 }
 
 function buildSpriteCollections() {
