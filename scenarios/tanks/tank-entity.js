@@ -2,8 +2,9 @@ import * as dosemu from "../../lib/dosemu.js";
 import * as dosemuBBox from "../../lib/dosemu-bbox.js";
 import * as dosemuSound from "../../lib/dosemu-sound.js";
 import { Entity } from "./entity.js";
-import world from "./world.js";
+import { world } from "./world.js";
 import { Bullet } from "./bullet-entity.js";
+import { AbstractController } from "./controller.abstract.js";
 
 export class Tank extends Entity {
 
@@ -17,6 +18,9 @@ export class Tank extends Entity {
 	identity = "";
 	bulletSpeed = 150;
 	health = 100;
+
+	/** @type {AbstractController} */
+	controller = null;
 
 	constructor(sprites, x, y, orientation, identity) {
 		super(x, y);
@@ -60,6 +64,9 @@ export class Tank extends Entity {
 
 	update(dt) {
 		this.timeSinceLastFire += dt;
+		if (this.controller) {
+			this.controller.update(dt);
+		}
 	}
 
 	fire() {
@@ -96,6 +103,34 @@ export class Tank extends Entity {
 					this.health -= otherEntity.damage;
 				}
 				break;
+			case "Brick":
+				if (this.controller) {
+					this.controller.handleBrickCollision(otherEntity);
+				}
 		}
 	}
+
+	/** @param {AbstractController} controller */
+	addController(controller) {
+		this.controller = controller;
+	}
+
+	/**
+	 * @param {number} dx
+	 * @param {number} dy
+	 * @return {void}
+	 * @override
+	 */
+	 move(dx, dy) {
+		 if (dx < 0)
+		 	this.orientation = "left";
+		else if (dx > 0)
+			this.orientation = "right";
+		else if (dy < 0)
+			this.orientation = "up";
+		else if (dy > 0)
+			this.orientation = "down";
+
+		super.move(dx, dy);
+	 }
 }

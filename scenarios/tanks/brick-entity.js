@@ -1,6 +1,6 @@
+import { Entity } from "./entity.js";
 import * as dosemu from "../../lib/dosemu.js";
 import * as dosemuBBox from "../../lib/dosemu-bbox.js";
-import { Entity } from "./entity.js";
 
 export class Brick extends Entity {
 

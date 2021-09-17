@@ -14,7 +14,9 @@ import { Entity } from "./entity.js";
 import { Brick } from "./brick-entity.js";
 import { Tank } from "./tank-entity.js";
 import { Bullet } from "./bullet-entity.js";
-import world from "./world.js";
+import { world } from "./world.js";
+import { AIController } from "./ai-controller.js";
+import { HumanController } from "./human-controller.js";
 
 Entity.debugFlags.drawCenterPoint = false;
 Entity.debugFlags.drawBBox = false;
@@ -69,7 +71,6 @@ export function draw() {
 }
 
 export function update(dt) {
-	handlePlayerKeys(dt);
 	for (let i=0; i<world.enemies.length; ) {
 		let enemy = world.enemies[i];
 		enemy.update(dt);
@@ -111,7 +112,9 @@ function placeEntities() {
 				world.brickMatrix[i][j] = world.bricks[world.bricks.length - 1];
 			}
 			if (code >= 5 && code <= 8) {
-				world.enemies.push(new Tank(enemyTankSprites[code - 5], x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2, "up", "enemy"));
+				const enemy = new Tank(enemyTankSprites[code - 5], x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2, "up", "enemy")
+				enemy.addController(new AIController(enemy, world));
+				world.enemies.push(enemy);
 			}
 			if (code === 9) {
 				createPlayer(x + world.BRICK_SIZE / 2, y + world.BRICK_SIZE / 2);
@@ -122,47 +125,7 @@ function placeEntities() {
 
 function createPlayer(x, y) {
 	world.player = new Tank(playerTankSprites, x, y, "up", "player");
-}
-
-function handlePlayerKeys(dt) {
-	const playerMoveSpeed = 30; // px/sec
-	let playerDx = 0, playerDy = 0;
-	if (dosemu.isKeyPressed("ArrowLeft")) {
-		if (world.player.orientation == "left") {
-			playerDx = -playerMoveSpeed * dt;
-		} else {
-			world.player.orientation = "left";
-		}
-	}
-	if (dosemu.isKeyPressed("ArrowRight")) {
-		if (world.player.orientation == "right") {
-			playerDx = +playerMoveSpeed * dt;
-		} else {
-			world.player.orientation = "right";
-		}
-	}
-	if (dosemu.isKeyPressed("ArrowUp")) {
-		if (world.player.orientation == "up") {
-			playerDy = -playerMoveSpeed * dt;
-		} else {
-			world.player.orientation = "up";
-		}
-	}
-	if (dosemu.isKeyPressed("ArrowDown")) {
-		if (world.player.orientation == "down") {
-			playerDy = +playerMoveSpeed * dt;
-		} else {
-			world.player.orientation = "down";
-		}
-	}
-	if (playerDx || playerDy) {
-		world.player.move(playerDx, playerDy);
-	}
-	if (dosemu.isKeyPressed(" ")) {
-		world.player.fire();
-	} else {
-		world.player.reload();
-	}
+	world.player.addController(new HumanController(world.player, world));
 }
 
 function buildSpriteCollections() {

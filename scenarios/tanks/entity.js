@@ -43,6 +43,11 @@ export class Entity {
 		return this.collisionEnabledEntityTypes.has(entityType);
 	}
 
+	/**
+	 * @param {number} dx
+	 * @param {number} dy
+	 * @return {void}
+	 */
 	move(dx, dy) {
 		const collisionResult = checkCollision(this, this.getBoundingBox(), dx, dy);
 		if (collisionResult.collider) {
