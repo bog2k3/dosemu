@@ -1,4 +1,4 @@
-import * as dosemu from "../lib/dosemu.js";
+import * as dosemu from "../../src/dosemu.js";
 
 let rowOffs = 0;
 
@@ -18,6 +18,9 @@ export function draw() {
 		dosemu.drawBar(crtCol*sqW, crtRow*rowH, (crtCol+1)*sqW-1, crtRow*rowH+sqW-1, i);
 		dosemu.drawText(crtCol*sqW, crtRow*rowH+sqW, String(i), i);
 	}
+
+	dosemu.drawText(161, 101, "Use Up/Down arrow to scroll", 0, "center");
+	dosemu.drawText(160, 100, "Use Up/Down arrow to scroll", 15, "center");
 }
 
 export function update(dt) {

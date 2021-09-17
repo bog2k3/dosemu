@@ -1,5 +1,5 @@
 import { AbstractController } from "./controller.abstract.js";
-import * as dosemu from "../../lib/dosemu.js";
+import * as dosemu from "../../src/dosemu.js";
 
 export class HumanController extends AbstractController {
 

@@ -1,6 +1,6 @@
-import * as dosemu from "../../lib/dosemu.js";
-import * as dosemuSprite from "../../lib/dosemu-sprite.js";
-import * as dosemuSound from "../../lib/dosemu-sound.js";
+import * as dosemu from "../../src/dosemu.js";
+import * as dosemuSprite from "../../src/dosemu-sprite.js";
+import * as dosemuSound from "../../src/dosemu-sound.js";
 import playerTankSprite from "./data/tank-sprite-player.png.js";
 import enemyTankSpriteA from "./data/tank-sprite-enemy-a.png.js";
 import enemyTankSpriteB from "./data/tank-sprite-enemy-b.png.js";

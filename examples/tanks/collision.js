@@ -1,4 +1,4 @@
-import * as dosemuBBox from "../../lib/dosemu-bbox.js";
+import * as dosemuBBox from "../../src/dosemu-bbox.js";
 import { world } from "./world.js";
 
 /** checks a bounding box at a position against collisions with world objects

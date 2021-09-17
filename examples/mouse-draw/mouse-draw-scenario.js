@@ -1,4 +1,4 @@
-import * as dosemu from "../lib/dosemu.js";
+import * as dosemu from "../../src/dosemu.js";
 
 let crtColor = 1;
 let pixels = [];
@@ -9,6 +9,8 @@ export function init() {
 }
 
 export function draw() {
+	dosemu.drawText(160, 100, "Use the mouse to draw", 10, "center");
+	dosemu.drawText(160, 115, "Right-click to change color", 10, "center");
 	for (let i=0; i<200; i++) {
 		if (!pixels[i])
 			continue;

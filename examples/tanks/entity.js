@@ -1,4 +1,4 @@
-import * as dosemu from "../../lib/dosemu.js";
+import * as dosemu from "../../src/dosemu.js";
 import { checkCollision } from "./collision.js";
 
 export class Entity {

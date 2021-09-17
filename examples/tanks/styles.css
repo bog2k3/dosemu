@@ -1,0 +1,20 @@
+body {
+	background-color: black;
+}
+
+#root {
+	width: 100%;
+}
+
+#emuscreen {
+	margin: 0 auto;
+}
+
+#emuconsole {
+	max-height: 15em;
+	margin: 0 auto;
+	margin-top: 0.5em;
+	overflow: auto;
+	background: black;
+	color: #8ff;
+}

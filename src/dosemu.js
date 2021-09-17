@@ -1,8 +1,8 @@
 import { init as soundInit, unmute as soundUnmute } from "./dosemu-sound.js";
-import VGA_Palette from "./data/vga-palette.js";
-import VGA_Font from "./data/font.js";
-import mouseCursorSprite from "./data/mouse-cursor-large.js";
 import { BoundingBox } from "./dosemu-bbox.js";
+import VGA_Palette from "../data/vga-palette.js";
+import VGA_Font from "../data/font.js";
+import mouseCursorSprite from "../data/mouse-cursor-large.js";
 
 const CONST = {
 	SCREEN_WIDTH: 320,

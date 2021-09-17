@@ -1,5 +1,5 @@
 import PNG from "png-js.js";
-import VGA_Palette from "../../lib/data/vga-palette.js";
+import VGA_Palette from "../../data/vga-palette.js";
 import fs from "fs.js";
 
 const img = PNG.load(process.argv[2]);

@@ -1,5 +1,5 @@
-import * as dosemu from "../../lib/dosemu.js";
-import * as dosemuBBox from "../../lib/dosemu-bbox.js";
+import * as dosemu from "../../src/dosemu.js";
+import * as dosemuBBox from "../../src/dosemu-bbox.js";
 import { Entity } from "./entity.js";
 
 export class Bullet extends Entity {
