@@ -1,0 +1,31 @@
+{
+  "name": "dosemu",
+  "version": "1.0.0",
+  "description": "A toolkit to emulate the old DOS VGA graphics look and feel for retro games, running in a modern Canvas HTML5 element",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bog2k3/dosemu.git"
+  },
+  "keywords": [
+    "dos",
+    "vga",
+    "game",
+    "graphics"
+  ],
+  "author": {
+    "name": "Bogdan Ionita",
+    "email": "bog2k3@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bog2k3/dosemu/issues"
+  },
+  "homepage": "https://github.com/bog2k3/dosemu#readme"
+}
