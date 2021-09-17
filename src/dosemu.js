@@ -64,6 +64,11 @@ export function hideMouse() {
 	data.mouseVisible = false;
 }
 
+/** @returns {[x: number, y: number]} The x and y coordinates of the mouse cursor, in virtual screen space */
+export function getMousePosition() {
+	return [data.cursorX, data.cursorY];
+}
+
 /**
  * @param {number} button 0 to 3
  */

@@ -2,12 +2,15 @@
   "name": "midiconv",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
+  "description": "A tool to convert .mid files into JSON note sequences to be used in dosemu",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Bogdan Ionita",
+    "email": "bog2k3@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
     "@tonejs/midi": "^2.0.27",
