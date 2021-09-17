@@ -20,6 +20,7 @@ export function main() {
 };
 
 function init() {
+	dosemu.setNoiseStrength(0.25);
 	crtScenario.init();
 	requestAnimationFrame(step);
 }
@@ -36,7 +37,7 @@ function step() {
 
 function draw() {
 	// draw background noise:
-	dosemu.drawNoise(4);
+	dosemu.clearScreen();
 	// and stuff:
 	crtScenario.draw();
 }
