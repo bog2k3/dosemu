@@ -138,9 +138,11 @@ dosemu.hideMouse();
 ```
 
 You can also subscribe to mouse events:
-`dosemu.onMouseUp((x, y, buttonIndex) => {...})` The callback receives the position and button.
-`dosemu.onMouseDown((x, y, buttonIndex) => {...})` The callback receives the position and button.
-`dosemu.onMouseMove((x, y, dx, dy) => {...})` The callback receives the position and distance moved since last time.
+```
+dosemu.onMouseUp((x, y, buttonIndex) => {...}); // The callback receives the position and button.
+dosemu.onMouseDown((x, y, buttonIndex) => {...}); // The callback receives the position and button.
+dosemu.onMouseMove((x, y, dx, dy) => {...}); // The callback receives the position and distance moved since last time.
+```
 
 ## Sound & Music
 
