@@ -2,88 +2,115 @@
 
 If you feel nostalgic about the look and feel of old DOS games, this library helps you recreate that into the browser.
 
-## Usage notes
+## Table of Contents
+
+* [Usage notes](#usage-notes)
+* [Examples](#examples)
+* [Getting started](#getting-started)
+* [Graphics](#graphics)
+* * [Draw Functions](#draw-functions)
+* * [Color Palette](#color-palette)
+* * [Sprites](#sprites)
+* [Keyboard Input](#keyboard-input)
+* [Mouse Input](#mouse-input)
+* [Sound and Music](#sound-and-music)
+* [Tools](#tools)
+
+## Usage notes <a name="usage-notes"></a>
 
 The library is packed as ES6 Modules, thus you'll need to specify
+
 ```type="module" ```
-on the script tag for the entry-point into your application, then
-use ES6-style imports in your source files:
+
+on the script tag for the entry-point into your application, then use ES6-style imports in your source files:
+
 ```import * as dosemu from 'dosemu'; ```
 
 
-## Check out the examples
+## Check out the examples <a name="examples"></a>
 
 Since ES6 imports require an HTTP server, to run the examples start up an HTTP server in the root of the dosemu package (npm http-server will do), then navigate to
 ```http://localhost:8080/examples/name-of-example```
 
-## Getting started
+## Getting started <a name="getting-started"></a>
 
-The examples should provide a straight-forward way of how to use the library, but
-here's a quick guide nonetheless:
+The examples should provide a straight-forward way of how to use the library, but here's a quick guide nonetheless:
 1. Import dosemu
-```import * as dosemu from 'dosemu';```
+
+        import * as dosemu from 'dosemu';
 
 2. Initialize dosemu by giving it a reference to your "screen" element
 (where the canvas will be created by dosemu) and a reference to a "console" element
 (where dosemu will create a console to display output from your code).
 You do not need to create the canvas by yourself, in fact you shouldn't.
-```dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));```
+
+        dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));
 
 3. Set up the game-loop in your preferred way
-4. Write your frame render function, by using the various draw* functions from dosemu
+4. Write your frame render function, by using the various **draw\*** functions from dosemu
 
         dosemu.clearScreen();
         dosemu.drawPixel(100, 150, 15); // draw a pixel at location (100, 150) in color 15
         dosemu.drawLine(10, 10, 20, 20, 3); // draw a line from (10, 10) to (20, 20) in color 3
         // and so on - all draw functions are covered below.
 
-## Graphics
+## Graphics <a name="graphics"></a>
 
-The dosemu screen has a fixed resolution of **320 x 200** pixels just like the old "mode 13" in DOS.
-The colors are 8 bits per pixel, indexed, giving a palette of **256** possible colors.
-Each draw function accepts a number between 0..255 as the color index.
-The drawing is double-buffered, meaning the draw functions operate on a back-buffer, not directly onto the screen, and this buffer is perioadically copied over to the screen; this achieves flicker-free drawing.
+The dosemu screen has a fixed resolution of **320 x 200** pixels just like the old "mode 13" in DOS.<br>
+The colors are 8 bits per pixel, indexed, giving a palette of **256** possible colors.<br>
+Each draw function accepts a number between 0..255 as the color index.<br>
+The drawing is double-buffered, meaning the draw functions operate on a back-buffer, not directly onto the screen, and this buffer is perioadically copied over to the screen; this achieves flicker-free drawing.<br>
 The coordinates of the virtual screen are **(0, 0)** for the upper left corner, growing to the right and down up to **(319, 199)** for the bottom-right corner.
 
-## Draw functions
+### Draw functions <a name="draw-functions"></a>
 
-* ```clearScreen()```
-Clears the entire frame buffer
-* ```drawPixel(x, y, color)```
-Draws a single pixel at position (**x**,**y**) in the given color (**0**..**255**)
-* ```drawText(x, y, text, color, aligment="left")```
-Draws a text anchored at a given position, in a specified color.
-The alignment can be one of **"left"** | **"right"** | **"center"**. The position of the text relative to the anchor point is determined by the alignment.
-Text is rendered using a monospaced bitmap VGA font that is **8** pixels wide and **10** pixels high for each character.
-* ```drawBar(xLeft, yTop, xRight, yBottom, color)```
-Draws a "bar" (which is a filled rectangle) from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.
-**xRight** is assumed to be greater-than-or-equal to **xLeft**.
-**yBottom** is assumed to be greater-than-or-equal to **yTop**.
-* ```drawRectangle(xLeft, yTop, xRight, yBottom, color)```
-Draws a rectangle from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.
-**xRight** is assumed to be greater-than-or-equal to **xLeft**.
-**yBottom** is assumed to be greater-than-or-equal to **yTop**.
-* ```drawLine(x1, y1, x2, y2, color)```
-Draws a straight line from (**x1**, **y1**) to (**x2**, **y2**) inclusive.
-The coordinates can be given in any order in this case.
-* ```drawCircle(x, y, radius, color)```
-Draws a circle centered at (**x**, **y**) with a radius of **r**, in the specified color.
-* ```drawSprite(x, y, sprite)```
-Draws a sprite at position (**x**, **y**). See [Sprites](#Sprites) below
-* ```drawBBox(bbox, color)```
-Draws a bounding-box (**bbox**) expressed in screen-space, using the given **color**. See [Bounding Boxes](#BBox) below.
-This can be used for debug purposes, since a bounding box is basically a rectangle, so there's no other use case for this function.
+*		clearScreen()
+	Clears the entire frame buffer
+	
+*		drawPixel(x, y, color)
+	Draws a single pixel at position (**x**,**y**) in the given color (**0**..**255**)
+	
+*		drawText(x, y, text, color, aligment="left")
+	Draws a text anchored at a given position, in a specified color.<br>
+	The alignment can be one of **"left"** | **"right"** | **"center"**. The position of the text relative to the anchor point is determined by the alignment.<br>
+	Text is rendered using a monospaced bitmap VGA font that is **8** pixels wide and **10** pixels high for each character.
+	
+*		drawBar(xLeft, yTop, xRight, yBottom, color)
+	Draws a "bar" (which is a filled rectangle) from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.<br>
+	**xRight** is assumed to be greater-than-or-equal to **xLeft**.<br>
+	**yBottom** is assumed to be greater-than-or-equal to **yTop**.
+	
+*		drawRectangle(xLeft, yTop, xRight, yBottom, color)
+	Draws a rectangle from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.<br>
+	**xRight** is assumed to be greater-than-or-equal to **xLeft**.<br>
+	**yBottom** is assumed to be greater-than-or-equal to **yTop**.
+	
+*		drawLine(x1, y1, x2, y2, color)
+	Draws a straight line from (**x1**, **y1**) to (**x2**, **y2**) inclusive.<br>
+	The coordinates can be given in any order in this case.
+	
+*		drawCircle(x, y, radius, color)
+	Draws a circle centered at (**x**, **y**) with a radius of **r**, in the specified color.
+	
+*		drawSprite(x, y, sprite)
+	Draws a sprite at position (**x**, **y**). See [Sprites](#sprites) below
+	
+*		drawBBox(bbox, color)
+	Draws a bounding-box (**bbox**) expressed in screen-space, using the given **color**. See [Bounding Boxes](#BBox) below.<br>
+	This can be used for debug purposes, since a bounding box is basically a rectangle, so there's no other use case for this function.
 
-## Color palette
+### Color palette <a name="color-palette"></a>
 
-The color palette can be visualized by running the "palette" example. Each color is numbered for easy reference.
+The color palette can be visualized by running the "palette" example. Each color is numbered for easy reference.<br>
 This is the standard VGA 256 color palette used in old DOS applications and games.
 
-## <a name="Sprites"></a>Sprites
-A sprite is an object containing a pixel matrix and some metadata - see the class definition below.
-A sprite can be either written manually (not recommended) or obtained from a PNG image by using the `spriteconv` tool included - see [Tools](#tools).
-The **bbox** field can be computed automatically using the `computeBBox()` function in **dosemu-sprites** - this will compute a tight bounding box around the visible pixels of the sprite, ignoring any transparent pixels.
+### Sprites <a name="sprites"></a>
+
+A sprite is an object containing a pixel matrix and some metadata - see the class definition below.<br>
+A sprite can be either written manually (not recommended) or obtained from a PNG image by using the `spriteconv` tool included - see [Tools](#tools).<br>
+The **bbox** field can be computed automatically using the `computeBBox()` function in **dosemu-sprites** - this will compute a tight bounding box around the visible pixels of the sprite, ignoring any transparent pixels.<br>
 Of course the bounding box can be specified manually using the **bboxTop**, **bboxBottom**, **bboxLeft** and **bboxRight** members prior to invoking the computation - these values (if present) override the automatic detection.
+
 ```
 // this is defined in dosemu-sprite.js
 class Sprite {
@@ -112,7 +139,7 @@ class Sprite {
 }
 ```
 
-## Keyboard input
+## Keyboard input <a name="keyboard-input"></a>
 
 There are two methods of using keyboard input:
 1. Checking directly if a button is pressed at that moment
@@ -124,28 +151,33 @@ There are two methods of using keyboard input:
         dosemu.onKeyDown(key => {...})
         dosemu.onKeyUp(key => {...})
 
-## Mouse input
+## Mouse input <a name="mouse-input"></a>
+
 Mouse position can be queried with
+
 `dosemu.getMousePosition()` which returns [x,y] in virtual screen coordinates.
 
 Mouse buttons can be queried similarly to keyboard buttons with
+
 `dosemu.isMouseButtonDown(buttonIndex: number)` where buttonIndex is 0..3.
 
 Mouse cursor can be shown or hidden using these functions:
+
 ```
 dosemu.showMouse();
 dosemu.hideMouse();
 ```
 
 You can also subscribe to mouse events:
+
 ```
 dosemu.onMouseUp((x, y, buttonIndex) => {...}); // The callback receives the position and button.
 dosemu.onMouseDown((x, y, buttonIndex) => {...}); // The callback receives the position and button.
 dosemu.onMouseMove((x, y, dx, dy) => {...}); // The callback receives the position and distance moved since last time.
 ```
 
-## Sound & Music
+## Sound & Music <a name="sound-and-music"></a>
 
 TODO
 
-## <a name="tools"></a> Tools
+## Tools <a name="tools"></a>
