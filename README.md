@@ -34,10 +34,12 @@ Since ES6 imports require an HTTP server, to run the examples start up an HTTP s
 
 ## Getting started <a name="getting-started"></a>
 
+> See the [Minimal working example](#minimal-example) below.
+
 The examples should provide a straight-forward way of how to use the library, but here's a quick guide nonetheless:
 1. Import dosemu
 
-        import * as dosemu from 'dosemu';
+        import { dosemu } from './node_modules/dosemu/index.js';
 
 2. Initialize dosemu by giving it a reference to your "screen" element
 (where the canvas will be created by dosemu) and a reference to a "console" element
@@ -54,6 +56,46 @@ You do not need to create the canvas by yourself, in fact you shouldn't.
         dosemu.drawLine(10, 10, 20, 20, 3); // draw a line from (10, 10) to (20, 20) in color 3
         // and so on - all draw functions are covered below.
 
+## Minimal Working Example <a name="minimal-example"></a>
+
+```
+<html>
+	<head>
+		<title>DOSEMU Test</title>
+	</head>
+	<body>
+		<div id="root">
+			<div id="emuscreen"></div>
+			<div id="emuconsole"></div>
+		</div>
+	</body>
+	<script type="module">
+		import { dosemu } from "./node_modules/dosemu/index.js";
+
+		document.onreadystatechange = () => {
+			dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));
+			init();
+		};
+
+		function init() {
+			dosemu.setNoiseStrength(0.25);
+			requestAnimationFrame(step);
+		}
+
+		function step() {
+			draw();
+			requestAnimationFrame(step);
+		}
+
+		function draw() {
+			dosemu.clearScreen();
+			dosemu.drawText(160, 100, "Hello World", 10, "center");
+		}
+	</script>
+</html>
+
+```
+
 ## Graphics <a name="graphics"></a>
 
 The dosemu screen has a fixed resolution of **320 x 200** pixels just like the old "mode 13" in DOS.<br>
@@ -66,35 +108,35 @@ The coordinates of the virtual screen are **(0, 0)** for the upper left corner, 
 
 *		clearScreen()
 	Clears the entire frame buffer
-	
+
 *		drawPixel(x, y, color)
 	Draws a single pixel at position (**x**,**y**) in the given color (**0**..**255**)
-	
+
 *		drawText(x, y, text, color, aligment="left")
 	Draws a text anchored at a given position, in a specified color.<br>
 	The alignment can be one of **"left"** | **"right"** | **"center"**. The position of the text relative to the anchor point is determined by the alignment.<br>
 	Text is rendered using a monospaced bitmap VGA font that is **8** pixels wide and **10** pixels high for each character.
-	
+
 *		drawBar(xLeft, yTop, xRight, yBottom, color)
 	Draws a "bar" (which is a filled rectangle) from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.<br>
 	**xRight** is assumed to be greater-than-or-equal to **xLeft**.<br>
 	**yBottom** is assumed to be greater-than-or-equal to **yTop**.
-	
+
 *		drawRectangle(xLeft, yTop, xRight, yBottom, color)
 	Draws a rectangle from the (**xLeft**, **yTop**) coordinates down and right to (**xRight**, **yBottom**) inclusive.<br>
 	**xRight** is assumed to be greater-than-or-equal to **xLeft**.<br>
 	**yBottom** is assumed to be greater-than-or-equal to **yTop**.
-	
+
 *		drawLine(x1, y1, x2, y2, color)
 	Draws a straight line from (**x1**, **y1**) to (**x2**, **y2**) inclusive.<br>
 	The coordinates can be given in any order in this case.
-	
+
 *		drawCircle(x, y, radius, color)
 	Draws a circle centered at (**x**, **y**) with a radius of **r**, in the specified color.
-	
+
 *		drawSprite(x, y, sprite)
 	Draws a sprite at position (**x**, **y**). See [Sprites](#sprites) below
-	
+
 *		drawBBox(bbox, color)
 	Draws a bounding-box (**bbox**) expressed in screen-space, using the given **color**. See [Bounding Boxes](#BBox) below.<br>
 	This can be used for debug purposes, since a bounding box is basically a rectangle, so there's no other use case for this function.
