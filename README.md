@@ -60,38 +60,38 @@ You do not need to create the canvas by yourself, in fact you shouldn't.
 
 ```
 <html>
-	<head>
-		<title>DOSEMU Test</title>
-	</head>
-	<body>
-		<div id="root">
-			<div id="emuscreen"></div>
-			<div id="emuconsole"></div>
-		</div>
-	</body>
-	<script type="module">
-		import { dosemu } from "./node_modules/dosemu/index.js";
+  <head>
+    <title>DOSEMU Test</title>
+  </head>
+  <body>
+    <div id="root">
+      <div id="emuscreen"></div>
+      <div id="emuconsole"></div>
+    </div>
+  </body>
+  <script type="module">
+    import { dosemu } from "./node_modules/dosemu/index.js";
 
-		document.onreadystatechange = () => {
-			dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));
-			init();
-		};
+    document.onreadystatechange = () => {
+      dosemu.init(document.querySelector("#emuscreen"), document.querySelector("#emuconsole"));
+      init();
+    };
 
-		function init() {
-			dosemu.setNoiseStrength(0.25);
-			requestAnimationFrame(step);
-		}
+    function init() {
+      dosemu.setNoiseStrength(0.25);
+      requestAnimationFrame(step);
+    }
 
-		function step() {
-			draw();
-			requestAnimationFrame(step);
-		}
+    function step() {
+      draw();
+      requestAnimationFrame(step);
+    }
 
-		function draw() {
-			dosemu.clearScreen();
-			dosemu.drawText(160, 100, "Hello World", 10, "center");
-		}
-	</script>
+    function draw() {
+      dosemu.clearScreen();
+      dosemu.drawText(160, 100, "Hello World", 10, "center");
+    }
+  </script>
 </html>
 
 ```
