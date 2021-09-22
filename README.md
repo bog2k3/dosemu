@@ -250,7 +250,7 @@ ideally in short succession, such as at every frame) with the time interval that
 	> `let seq = [[200, 0.1], [400, 0.2], [800, 0.15]];`
 	>
 	> This sequence is composed of three notes, the first with a frequency of 200 Hz and a duration of 0.1 seconds,
-	> The second 400 Hz and 0.1 seconds, and third 800 Hz and 0.15 seconds
+	> The second 400 Hz and 0.2 seconds, and third 800 Hz and 0.15 seconds
 
 *		dosemuSound.loop(sequence: number[][], times = -1, finishedCallback: () => void, waveForm = "square")
 	Same as `dosemuSound.sound()`, but loops a sound for a number of times (or indefinitely if **times == -1** which is the default).
