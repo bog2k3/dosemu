@@ -78,18 +78,14 @@ You do not need to create the canvas by yourself, in fact you shouldn't.
     };
 
     function init() {
-      dosemu.setNoiseStrength(0.25);
-      requestAnimationFrame(step);
-    }
-
-    function step() {
-      draw();
-      requestAnimationFrame(step);
+      requestAnimationFrame(draw);
     }
 
     function draw() {
       dosemu.clearScreen();
       dosemu.drawText(160, 100, "Hello World", 10, "center");
+
+	  requestAnimationFrame(draw);
     }
   </script>
 </html>
