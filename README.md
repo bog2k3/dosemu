@@ -231,38 +231,32 @@ to unmute programatically.
 In order for the sound to progress from one tone to another, you must call the `dosemuSound.update(dt)` function regularly (
 ideally in short succession, such as at every frame) with the time interval that has passed since the last invokation.
 
-```dosemuSound.init()```
+*		dosemuSound.init()
+	Initializes the sound system
 
-Initializes the sound system
+*		dosemuSound.unmute()
+	If called from a user action callback, will programatically unmute the sound; Called automatically by the unmute button in the lower-right corner.
 
-```dosemuSound.unmute()```
+*		dosemuSound.setSoundStartedCallback(callback: () => void)
+	Sets a callback that will be invoked at the moment the sound is unmuted. This can be used to start playing music from the begining only when the
+	user unmutes the sound.
 
-If called from a user action callback, will programatically unmute the sound; Called automatically by the unmute button in the lower-right corner.
+*		dosemuSound.sound(sequence: number[][], finishedCallback: () => void, waveForm: "sine" | "square" | "triangle" | "sawtooth" = "square")
+	This is the primary function that plays sounds. Provide a sequence of notes (an array of pairs of note frequency value and duration),
+	and optionally a callback that will be invoked when the sound finished playing and (optionally) the waveform to be used.
+	The default value for the waveform is "square" which gives the most 8-bit-like sound, but if you want you can play around with other forms.
 
-```dosemuSound.setSoundStartedCallback(callback: () => void)```
+	> **Note sequence explanation**
+	> `let seq = [[200, 0.1], [400, 0.2], [800, 0.15]];`
+	>
+	> This sequence is composed of three notes, the first with a frequency of 200 Hz and a duration of 0.1 seconds,
+	> The second 400 Hz and 0.1 seconds, and third 800 Hz and 0.15 seconds
 
-Sets a callback that will be invoked at the moment the sound is unmuted. This can be used to start playing music from the begining only when the
-user unmutes the sound.
+*		dosemuSound.loop(sequence: number[][], times = -1, finishedCallback: () => void, waveForm = "square")
+	Same as `dosemuSound.sound()`, but loops a sound for a number of times (or indefinitely if **times == -1** which is the default).
+	This is usually used for playing music in a loop.
 
-```dosemuSound.sound(sequence: number[][], finishedCallback: () => void, waveForm: "sine" | "square" | "triangle" | "sawtooth" = "square")```
-
-This is the primary function that plays sounds. Provide a sequence of notes (an array of pairs of note frequency value and duration),
-and optionally a callback that will be invoked when the sound finished playing and (optionally) the waveform to be used.
-The default value for the waveform is "square" which gives the most 8-bit-like sound, but if you want you can play around with other forms.
-
-> **Note sequence explanation**
-> `let seq = [[200, 0.1], [400, 0.2], [800, 0.15]];`
->
-> This sequence is composed of three notes, the first with a frequency of 200 Hz and a duration of 0.1 seconds,
-> The second 400 Hz and 0.1 seconds, and third 800 Hz and 0.15 seconds
-
-```dosemuSound.loop(sequence: number[][], times = -1, finishedCallback: () => void, waveForm = "square")```
-
-Same as `dosemuSound.sound()`, but loops a sound for a number of times (or indefinitely if **times == -1** which is the default).
-This is usually used for playing music in a loop.
-
-```dosemuSound.update(dt: number)```
-
-Updates the sound engine, advancing all sequences by the given amount of time (**dt** is expressed in seconds).
+*		dosemuSound.update(dt: number)
+	Updates the sound engine, advancing all sequences by the given amount of time (**dt** is expressed in seconds).
 
 ## Tools <a name="tools"></a>
