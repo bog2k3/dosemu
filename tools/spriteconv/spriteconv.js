@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import PNG from "png-js.js";
+import PNG from "png-js";
 import VGA_Palette from "../../data/vga-palette.js";
-import fs from "fs.js";
+import fs from "fs";
 
 const img = PNG.load(process.argv[2]);
 const w = img.width;
