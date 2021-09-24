@@ -1,6 +1,6 @@
 {
   "name": "dosemu",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A toolkit to emulate the old DOS VGA graphics look and feel for retro games, running in a modern Canvas HTML5 element",
   "type": "module",
   "main": "index.js",
