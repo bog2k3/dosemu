@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "A tool to convert .mid files into JSON note sequences to be used in dosemu",
-  "main": "index.js",
+  "main": "midiconv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@tonejs/midi": "^2.0.27",
-    "midi-json-parser": "^8.0.46"
+    "@tonejs/midi": "^2.0.27"
   }
 }

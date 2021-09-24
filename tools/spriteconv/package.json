@@ -1,13 +1,16 @@
 {
-  "name": "picconv",
+  "name": "spriteconv",
   "version": "1.0.0",
   "type": "module",
   "description": "A tool to convert PNG images into JSON indexed-color sprites to be used in dosemu",
-  "main": "convert-pic.js",
+  "main": "spriteconv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Bogdan Ionita",
+    "email": "bog2k3@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
     "png-js": "^1.0.0"
