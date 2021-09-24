@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import PNG from "png-js.js";
 import VGA_Palette from "../../data/vga-palette.js";
 import fs from "fs.js";

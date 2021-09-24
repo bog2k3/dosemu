@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as fs from "fs.js";
 import Midi from "@tonejs/midi.js";
 
