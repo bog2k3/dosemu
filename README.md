@@ -15,6 +15,8 @@ If you feel nostalgic about the look and feel of old DOS games, this library hel
 * [Mouse Input](#mouse-input)
 * [Sound and Music](#sound-and-music)
 * [Tools](#tools)
+* * [Sprite Converter](#spriteconv)
+* * [MIDI Converter](#midiconv)
 
 ## Usage notes <a name="usage-notes"></a>
 
@@ -256,3 +258,55 @@ ideally in short succession, such as at every frame) with the time interval that
 	Updates the sound engine, advancing all sequences by the given amount of time (**dt** is expressed in seconds).
 
 ## Tools <a name="tools"></a>
+
+There are some tools included with this package, for helping you with converting resources to the proper format for dosemu.
+
+### Sprite Converter <a name="spriteconv"></a>
+
+This tool converts PNG images into JS modules that can be imported into your app.
+```
+npx spriteconv path/to/png originX? originY?
+```
+* The 1st argument is the path to the source PNG image
+* the 2nd and 3rd arguments are optional and represent the coordinates (in pixels) of the origin of the sprite - if omitted, they will default to the center of the image
+The transparent color is considered to be the color of the lower-left pixel. That means that if you want no transparency, then you must make that pixel a different color than the rest of your sprite.
+
+The best results are produced when converting true-color (24 bits per pixel) images. The color conversion from the source image into the indexed palette is done automatically by the tool.
+
+The tool will save a new file in the same path as the original, with the added extension ".js".
+So, if you invoke it like this:
+```npx spriteconv ./data/images/butterfly.png```
+it will produce a file `./data/images/butterfly.png.js` with the following contents:
+```
+export default {"width":20,"height":20,"originX":10,"originY":10,"transparent":12,"pixels":[[...]]}
+```
+Assuming the image was 20x20 pixels and that the color in the lower-left corner resolved to the color 12 in the palette.
+You can then import this into your app and pass it to `dosemu.drawSprite(...)`:
+```
+import butterflySprite form "./data/images/butterfly.png.js";
+...
+dosemu.drawSprite(30, 40, butterflySprite);
+```
+You can now use the `dosemuSprite.computeBoundingBox(butterflySprite)` to automatically compute a bounding box around your sprite, ignoring transparent pixels.
+
+If you want to manually specify the bounding box, you can edit the sprite js file (butterfly.png.js in this case) and insert these properties (each of which is optional):
+* `"bboxLeft": number`
+* `"bboxRight": number`
+* `"bboxTop": number`
+* `"bboxBottom": number`
+All of these take coordinates relative to the left and top edge of the image (coordinates grow towards the right and the bottom).
+When these exist on a sprite, `dosemuSprite.computeBoundingBox()` will use them instead of automatically computing the limits.
+
+### MIDI Converter <a name="midiconv"></a>
+
+This tool converts MIDI music files (*.mid) into a format that can be imported and played in dosemu directly.
+The conversion is not lossless, since many MIDI files contain multiple tracks and instruments, creating a rich polyphony. Dosemu doesn't support polyphony, so the conversion will merge all tracks into a single sequence and the instrument data will be discarded.
+```
+npx midiconv ./data/music/music1.mid
+```
+This will produce a file in the same location, with '.js' appended: `./data/music/music1.mid.js` that contains a note sequence which can be directly played by dosemu:
+```
+import myMusic1 from "./data/music/music1.mid.js"
+...
+dosemuSound.loop(myMusic1)
+```

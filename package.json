@@ -10,6 +10,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "spriteconv": "./tools/spriteconv/spriteconv.js",
+    "midiconv": "./tools/midiconv/midiconv.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bog2k3/dosemu.git"
