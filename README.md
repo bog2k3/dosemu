@@ -2,6 +2,8 @@
 
 If you feel nostalgic about the look and feel of old DOS games, this library helps you recreate that into the browser.
 
+![Tanks screenshot](https://github.com/bog2k3/dosemu/blob/master/screenshots/screenshot-tanks.png)
+
 ## Table of Contents
 
 * [Usage notes](#usage-notes)
