@@ -294,6 +294,7 @@ If you want to manually specify the bounding box, you can edit the sprite js fil
 * `"bboxRight": number`
 * `"bboxTop": number`
 * `"bboxBottom": number`
+
 All of these take coordinates relative to the left and top edge of the image (coordinates grow towards the right and the bottom).
 When these exist on a sprite, `dosemuSprite.computeBoundingBox()` will use them instead of automatically computing the limits.
 
