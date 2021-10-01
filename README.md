@@ -22,13 +22,17 @@ If you feel nostalgic about the look and feel of old DOS games, this library hel
 
 ## Usage notes <a name="usage-notes"></a>
 
-The library is packed as ES6 Modules, thus you'll need to specify
+The library is packed as a set of ES6 Modules, thus you'll need to specify `type="module"` in your HTML:
 
-```type="module" ```
+```
+<html>
+	<script type="module" src="my-main-script.js"></script>
+</html>
+```
 
-on the script tag for the entry-point into your application, then use ES6-style imports in your source files:
+Then use ES6-style imports in your `my-main-script.js` file
 
-```import * as dosemu from 'dosemu'; ```
+```import { dosemu } from "./node_modules/dosemu/index.js";```
 
 
 ## Check out the examples <a name="examples"></a>
