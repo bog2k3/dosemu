@@ -36,11 +36,13 @@ const data = {
 export function init(screenElement, consoleElement) {
 	soundInit();
 	screenElement.style.position = "relative";
-	screenElement.style.maxWidth = "calc(85vh * 1.6)";
-	consoleElement.style.maxWidth = screenElement.style.maxWidth;
+	screenElement.style.maxWidth = "calc(95vh * 1.6)";
 	createCanvas(screenElement);
 	createUnmuteButton(screenElement);
-	createConsole(consoleElement);
+	if (consoleElement) {
+		consoleElement.style.maxWidth = screenElement.style.maxWidth;
+		createConsole(consoleElement);
+	}
 	createColorPalette();
 
 	data.backBuffer = data.canvasCtx.createImageData(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT);
@@ -49,6 +51,11 @@ export function init(screenElement, consoleElement) {
 }
 
 export function consoleOut(text) {
+	if (!data.consoleElem) {
+		console.error(`dosemu.consoleOut() called, but there is no "console" element to write to!`);
+		console.error(`Pass the console element as the second parameter to dosemu.init()`);
+		return;
+	}
 	const p = document.createElement("p");
 	p.innerText = text;
 	p.style.margin = "0 1em 0.1em 1em";
@@ -97,10 +104,16 @@ export function onMouseMove(callback) {
 	data.mouseMoveCallback = callback;
 }
 
+/**
+ * @param {(key: string) => void} callback a callback to be invoked when a key is pressed. The name of the key is passed as argument.
+ */
 export function onKeyDown(callback) {
 	data.keyDownCallback = callback;
 }
 
+/**
+ * @param {(key: string) => void} callback a callback to be invoked when a key is released. The name of the key is passed as argument.
+ */
 export function onKeyUp(callback) {
 	data.keyUpCallback = callback;
 }
