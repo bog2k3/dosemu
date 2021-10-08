@@ -162,7 +162,7 @@ export function drawPixel(x, y, colorIndex) {
  * @param y {number}
  * @param str {string}
  * @param color {number} the color index
- * @param alignment {"left", "center", "right"}
+ * @param alignment {"left"|"center"|"right"}
  */
 export function drawText(x, y, str, color, alignment = "left") {
 	switch (alignment) {
