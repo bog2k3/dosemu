@@ -270,9 +270,10 @@ export function drawCircle(x, y, r, color) {
  * @param {number} x
  * @param {number} y
  * @param {{width: number, height: number, originX: number, originY: number, transparent: number, pixels: number[][]}} sprite
+ * @param {boolean} ghost (default false) set to true to draw the sprite as a ghost - only odd pixels
  */
-export function drawSprite(x, y, sprite) {
-	drawImageTargeted(x, y, sprite, drawPixel);
+export function drawSprite(x, y, sprite, ghost=false) {
+	drawImageTargeted(x, y, sprite, drawPixel, ghost);
 }
 
 /**
@@ -296,13 +297,13 @@ export function drawBBox(bbox, color) {
 }
 
 /** @param {{width: number, height: number, originX: number, originY: number, transparent: number, pixels: number[][]}} sprite */
-function drawImageTargeted(x, y, sprite, pixelFn) {
+function drawImageTargeted(x, y, sprite, pixelFn, ghost=false) {
 	x -= sprite.originX || 0;
 	y -= sprite.originY || 0;
 	for (let i = 0; i < sprite.height; i++) {
 		for (let j = 0; j < sprite.width; j++) {
 			const color = sprite.pixels[i][j];
-			if (color != sprite.transparent) {
+			if (color != sprite.transparent && (!ghost || (i+j) % 2 === 0)) {
 				pixelFn(j + x, i + y, color);
 			}
 		}

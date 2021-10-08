@@ -138,8 +138,9 @@ The coordinates of the virtual screen are **(0, 0)** for the upper left corner, 
 *		drawCircle(x, y, radius, color)
 	Draws a circle centered at (**x**, **y**) with a radius of **r**, in the specified color.
 
-*		drawSprite(x, y, sprite)
+*		drawSprite(x, y, sprite, ghost=false)
 	Draws a sprite at position (**x**, **y**). See [Sprites](#sprites) below
+	If **ghost** is set to true, only the odd pixels of the sprite will be drawn, giving a ghost-like, see-through effect.
 
 *		drawBBox(bbox, color)
 	Draws a bounding-box (**bbox**) expressed in screen-space, using the given **color**. See [Bounding Boxes](#BBox) below.<br>
