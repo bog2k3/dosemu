@@ -172,7 +172,7 @@ export function drawText(x, y, str, color, alignment = "left") {
 			x -= str.length * VGA_Font.charWidth;
 			break;
 		case "center":
-			x -= (str.length + 1) * VGA_Font.charWidth / 2;
+			x -= (str.length) * VGA_Font.charWidth / 2;
 			y -= VGA_Font.charHeight / 2;
 			break;
 	}
