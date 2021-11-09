@@ -170,8 +170,7 @@ export function drawPixel(x, y, colorIndex) {
 	x = Math.floor(x);
 	y = Math.floor(y);
 	const noiseStrength = data.noiseStrength * 5;
-	const noiseOffs = -noiseStrength / 2;
-	const noise = noiseOffs + Math.random() * noiseStrength;
+	const noise = Math.random() * noiseStrength;
 	const r = data.palette[colorIndex].r + noise;
 	const g = data.palette[colorIndex].g + noise;
 	const b = data.palette[colorIndex].b + noise;
@@ -309,7 +308,7 @@ export function drawSprite(x, y, sprite, ghost=false) {
 export function clearScreen() {
 	for (let x=0; x<CONST.SCREEN_WIDTH; x++) {
 		for (let y=0; y<CONST.SCREEN_HEIGHT; y++) {
-			drawPixel(x, y, Math.floor(232 + Math.random() * data.noiseStrength));
+			drawPixel(x, y, 0);
 		}
 	}
 }
