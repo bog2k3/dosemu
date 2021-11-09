@@ -134,6 +134,32 @@ export function setNoiseStrength(value) {
 	data.noiseStrength = Math.floor(Math.min(23, Math.max(1, value * 23)));
 }
 
+/**
+ * Returns the RGB values of a specific entry in the color palette
+ * @param {number} colorIndex the index of the color [0..255]
+ * @returns {{r: number, g: number, b: number}} the RGB values, each component is in the range [0..255]
+ */
+export function readPalette(colorIndex) {
+	if (colorIndex < 0 || colorIndex > 255) {
+		return {r: 0, g: 0, b: 0};
+	}
+	return {...data.palette[colorIndex]};
+}
+
+/**
+ * Writes an RGB value into the color palette at a given index
+ * @param {number} colorIndex the index of the color to write into
+ * @param {number} r red value [0..255]
+ * @param {number} g green value [0..255]
+ * @param {number} b blue value [0..255]
+ * @returns {void}
+ */
+export function writePalette(colorIndex, r, g, b) {
+	if (colorIndex >= 0 && colorIndex <= 255) {
+		data.palette[colorIndex] = {r, g, b};
+	}
+}
+
 export function drawPixel(x, y, colorIndex) {
 	if (x < 0 || x >= CONST.SCREEN_WIDTH || y < 0 || y >= CONST.SCREEN_HEIGHT) {
 		return;

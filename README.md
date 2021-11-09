@@ -151,6 +151,14 @@ The coordinates of the virtual screen are **(0, 0)** for the upper left corner, 
 The color palette can be visualized by running the "palette" example. Each color is numbered for easy reference.<br>
 This is the standard VGA 256 color palette used in old DOS applications and games.
 
+You can read the RGB values of a color by using the function:
+*		readPalette(colorIndex)
+	Returns an {r: number, g: number, b: number} object
+
+You can modify a color entry in the palette using this function:
+*		writePalette(colorIndex, r, g, b)
+	The colorIndex and color components (r,g,b) must be values between 0 and 255, inclusive.
+
 ### Sprites <a name="sprites"></a>
 
 A sprite is an object containing a pixel matrix and some metadata - see the class definition below.<br>
