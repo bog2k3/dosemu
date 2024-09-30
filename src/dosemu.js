@@ -1,8 +1,8 @@
-import { init as soundInit, unmute as soundUnmute } from "./dosemu-sound.js";
-import { BoundingBox } from "./dosemu-bbox.js";
-import VGA_Palette from "../data/vga-palette.js";
 import VGA_Font from "../data/font.js";
 import mouseCursorSprite from "../data/mouse-cursor-large.js";
+import VGA_Palette from "../data/vga-palette.js";
+import { BoundingBox } from "./dosemu-bbox.js";
+import { init as soundInit, unmute as soundUnmute } from "./dosemu-sound.js";
 
 const CONST = {
 	SCREEN_WIDTH: 320,
@@ -346,7 +346,8 @@ function createCanvas(parentElement) {
 		width: "calc(100% - 2em)",
 		border: "solid 0.5em black",
 		margin: "0.5em",
-		cursor: "none"
+		cursor: "none",
+		"image-rendering": "pixelated"
 	};
 	for (let key in canvasStyle) {
 		canvas.style[key] = canvasStyle[key];
